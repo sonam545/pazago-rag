@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info:
+  title: Pazago RAG API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /docs:
+    post:
+      summary: Ingest a document
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                metadata:
+                  type: object
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+  /query:
+    post:
+      summary: Query RAG + generate answer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q:
+                  type: string
+                k:
+                  type: integer
+      responses:
+        '200':
+          description: query results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  docs:
+                    type: array
+                    items:
+                      type: object
+                  answer:
+                    type: string
